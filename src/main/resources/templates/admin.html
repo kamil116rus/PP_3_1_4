@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+admin page
+
+<table class="table table-bordered table-striped">
+<tr>
+    <th>ID</th>
+    <th>userName</th>
+    <th>Age</th>
+    <th>Roles</th>
+    <th>Update</th>
+    <th>Delete</th>
+</tr>
+<tr th:each="user : ${allUsers}">
+    <td><b th:text="${user.getId()}">Id</b></td>
+    <td th:text="${user.getUsername()}">userName</td>
+    <td th:text="${user.getAge()}">age</td>
+    <td th:text="${user.getRoles()}">roles</td>
+    <td>
+        <form th:action="@{'admin/edit/' + ${user.getId()}}">
+            <input type="submit" class="buttonEdit" value="View User"/>
+        </form>
+    </td>
+    <td>
+        <form th:method="DELETE" th:action="@{'/admin/delete/' + ${user.getId()}}">
+            <input type="submit" class="buttonDelete" value="Delete User"/>
+        </form>
+    </td>
+</tr>
+
+</table>
+<input type="submit" onclick="window.location.href = '/admin' " value="Add user!"/>
+<input type="submit" onclick="window.location.href = '/' " value="Update UsersTable"/>
+<br>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Sign Out</button>
+</form>
+
+</body>
+</html>

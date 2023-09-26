@@ -10,7 +10,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name="t_user")
+@Table(name = "t_user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +53,7 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public  String getRole() {
+    public String getRole() {
         return getRoles().stream().map(Role::getName).toString();
     }
 

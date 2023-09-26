@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Spring Security Example</title>
+<head><meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>User</title>
 </head>
 <body>
 <h1>User, welcome spring boot security page!</h1>
-
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>ID</th>
+        <th>userName</th>
+        <th>Age</th>
+        <th>Roles</th>
+    </tr>
+    <tr>
+        <td><b th:text="${user.getId()}">Id</b></td>
+        <td th:text="${user.getUsername()}">userName</td>
+        <td th:text="${user.getAge()}">age</td>
+        <td th:text="${user.getRoles()}">roles</td>
+        <td>
+            <form th:method="DELETE" th:action="@{'delete/' + ${user.getId()}}">
+                <input type="submit" class="buttonDelete" value="Delete User"/>
+            </form>
+        </td>
+    </tr>
+</table>
 
 <form th:action="@{/logout}" method="post">
     <button type="submit">Sign Out</button>

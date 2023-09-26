@@ -6,6 +6,15 @@
 <body>
 <h1>Welcome to Index PAGE!</h1>
 
+<input type="submit" onclick="window.location.href = '/registration' " value="Registration"/>
+
+
+<input type="submit" onclick="window.location.href = '/login' " value="Sign in"/>
+
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Sign Out</button>
+</form>
 
 </body>
 </html>

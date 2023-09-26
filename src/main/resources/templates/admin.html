@@ -7,7 +7,7 @@
     <title>Title</title>
 </head>
 <body>
-admin page
+<h1>admin page</h1>
 
 <table class="table table-bordered table-striped">
 <tr>
@@ -22,7 +22,13 @@ admin page
     <td><b th:text="${user.getId()}">Id</b></td>
     <td th:text="${user.getUsername()}">userName</td>
     <td th:text="${user.getAge()}">age</td>
-    <td th:text="${user.getRoles()}">roles</td>
+    <td>
+        <p
+                       th:each="role : ${user.getRoles()}"
+                       th:text="${role.getNameTable()}">roles
+        </p>
+    </td>
+
     <td>
         <form th:action="@{'admin/edit/' + ${user.getId()}}">
             <input type="submit" class="buttonEdit" value="View User"/>

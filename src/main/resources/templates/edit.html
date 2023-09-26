@@ -16,33 +16,52 @@
         <tr>
             <th>Id</th>
             <th> Name</th>
-            <th> Lastname</th>
             <th> Age</th>
         </tr>
         </thead>
         <tbody>
 
         <td><label for="id">Enter id: </label>
-            <input type="number" th:field="*{id}" id="id"/>
+            <input type="number" th:field="*{id}" id="id"readonly="readonly"/>
         </td>
         <td>
             <label for="fistName">Enter name: </label>
-            <input type="text" th:field="*{username}" id="fistName"/>
+            <input type="text" th:field="*{username}" id="fistName"readonly="readonly"/>
         </td>
 
         <td>
             <label for="age">Enter age: </label>
-            <input type="number" min="0" max="100" th:field="*{age}" id="age"/>
+            <input type="number" th:field="*{age}" id="age"readonly="readonly"/>
         </td>
+        <td>
+            <label for="password">password: </label>
+            <input type="text"th:field="*{password}" id="password" readonly="readonly"/>
+        </td>
+        <td>
+            <p>
+                <label>Roles:
+                    <input type="checkbox" name="roles"
+                           th:each="role : ${Roles}"
+                           th:text="${role.getNameTable()}"
+                           th:value="${role.id}"
+                           th:field="*{roles}"
+                    />
+                </label>
+            </p>
+        </td>
+
         </tbody>
     </table>
 
-    <button type="submit" onclick="window.location.href = '/'">
+    <button type="submit" onclick="window.location.href = '/admin'">
         Edit User
     </button>
     <br>
     <br>
-    <button onclick="window.location.href = '/'">Back to users</button>
+    <button onclick="window.location.href = '/admin'">Back to users</button>
+</form>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Sign Out</button>
 </form>
 </body>
 </html>

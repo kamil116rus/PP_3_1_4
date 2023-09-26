@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public  class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
@@ -41,15 +41,13 @@ public  class UserService implements UserDetailsService {
 
         return user;
     }
+
     public List<User> allUsers() {
-      return userRepository.findAll();
+        return userRepository.findAll();
     }
 
 
-
-
-
-//
+    //
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
@@ -78,6 +76,15 @@ public  class UserService implements UserDetailsService {
             return true;
         }
         return false;
+    }
+
+    public void updateUser(User user) {
+        user.setUsername(user.getUsername());
+        user.setPassword(user.getPassword());
+        user.setAge(user.getAge());
+        user.setRoles(user.getRoles());
+        userRepository.save(user);
+
     }
 
 }

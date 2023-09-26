@@ -14,6 +14,7 @@ public class Role implements GrantedAuthority {
     @Transient
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+
     public Role() {
     }
 
@@ -36,6 +37,10 @@ public class Role implements GrantedAuthority {
 
     public String getName() {
         return name;
+    }
+
+    public String getNameTable() {
+        return name.replace("ROLE_", "");
     }
 
     public void setName(String name) {

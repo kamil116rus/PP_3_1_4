@@ -32,6 +32,7 @@ public class AdminController {
         model.addAttribute("roles", roleRepository.findAll());
         return "admin";
     }
+
     @PostMapping
     public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
 
@@ -50,7 +51,6 @@ public class AdminController {
     }
 
 
-
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.findUserById(id));
@@ -59,7 +59,7 @@ public class AdminController {
     }
 
     @PatchMapping("/edit")//
-    public String update(@ModelAttribute("editedUser") @Valid User user, BindingResult bindingResult, Model model) {
+    public String update(@ModelAttribute("editedUser") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin";
         } else {
@@ -75,9 +75,4 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-//    @GetMapping("/admin/gt/{userId}")
-//    public String  gtUser(@PathVariable("userId") Long userId, Model model) {
-//        model.addAttribute("allUsers", userService.usergtList(userId));
-//        return "admin";
-//    }
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -21,6 +21,7 @@
     </div>
 </nav>
 <br>
+
 <divrow class="row ">
     <div class="col-2">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -70,7 +71,9 @@
 
 
                                         <td>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:data-bs-target="'#editModal'+${user.id}">Edit</button>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    th:data-bs-target="'#editModal'+${user.id}">Edit
+                                            </button>
 
                                             <div class="modal" tabindex="-1"
                                                  th:id="${'editModal' + user.id}">
@@ -78,7 +81,8 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="modalBasicLabel">Edit user</h5>
-                                                            <button type="button" class="btn-close" aria-label="Close"></button>
+                                                            <button type="button" class="btn-close"
+                                                                    aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="modal-body text-center d-flex justify-content-center">
@@ -95,7 +99,7 @@
                                                                         <input class="form-control" type="number"
                                                                                id="edit-id"
                                                                                th:value="${editedUser.getId()}"
-                                                                               th:name="id"  readonly>
+                                                                               th:name="id" readonly>
 
                                                                     </div>
 
@@ -144,7 +148,8 @@
                                                                                th:name="password">
                                                                     </div>
 
-                                                                    <label class="form-label fw-bold" style="font-weight:bold">Role</label>
+                                                                    <label class="form-label fw-bold"
+                                                                           style="font-weight:bold">Role</label>
                                                                     <select class="w-100" name="roles"
                                                                             multiple size="2" required>
                                                                         <option th:each="role : ${roles}"
@@ -171,17 +176,20 @@
                                         </td>
 
 
-
                                         <td>
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#deleteModal'+${user.id}">Delete</button>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    th:data-bs-target="'#deleteModal'+${user.id}">Delete
+                                            </button>
 
                                             <div class="modal" tabindex="-1"
                                                  th:id="${'deleteModal' + user.id}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="modalBasicLabel1">Delete user</h5>
-                                                            <button type="button" class="btn-close" aria-label="Close"></button>
+                                                            <h5 class="modal-title" id="modalBasicLabel1">Delete
+                                                                user</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="modal-body text-center d-flex justify-content-center">
@@ -198,7 +206,7 @@
                                                                         <input class="form-control" type="number"
                                                                                id="delete-id"
                                                                                th:value="${deleteUser.getId()}"
-                                                                               th:name="id"  readonly>
+                                                                               th:name="id" readonly>
 
                                                                     </div>
 
@@ -247,7 +255,8 @@
                                                                                th:name="password" readonly>
                                                                     </div>
 
-                                                                    <label class="form-label fw-bold" style="font-weight:bold">Role</label>
+                                                                    <label class="form-label fw-bold"
+                                                                           style="font-weight:bold">Role</label>
                                                                     <select class="w-100" name="roles"
                                                                             multiple size="2" required>
                                                                         <option th:each="role : ${roles}"

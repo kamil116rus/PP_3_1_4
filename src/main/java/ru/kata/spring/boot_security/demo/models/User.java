@@ -31,10 +31,10 @@ public class User implements UserDetails {
     @Size(min = 2, max = 100, message = "Не меньше 2 знаков")
     private String password;
 
-    @Column(name= "firsname")
+    @Column(name = "firsname")
     private String firstName;
 
-    @Column(name="lastname")
+    @Column(name = "lastname")
     private String lastName;
 
     @Column(name = "age")
@@ -69,7 +69,6 @@ public class User implements UserDetails {
     }
 
 
-
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
@@ -90,7 +89,6 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
 
 
     public Long getId() {

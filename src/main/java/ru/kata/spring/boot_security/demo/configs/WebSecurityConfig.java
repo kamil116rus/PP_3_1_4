@@ -7,11 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 @Configuration
@@ -33,38 +30,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .authorizeRequests()
-//                //Доступ только для не зарегистрированных пользователей
-//                .antMatchers("/registration").not().fullyAuthenticated()
-//                //Доступ только для пользователей с ролью Администратор
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/user").hasRole("USER")
-//                //Доступ разрешен всем пользователей
-//                .antMatchers("/", "/resources/**").permitAll()
-//                //Все остальные страницы требуют аутентификации
-//                .anyRequest().authenticated()
-//                .and()
-//                //Настройка для входа в систему
-////                .formLogin()
-////                //.loginPage("/login")
-////                //Перенарпавление на главную страницу после успешного входа
-////                .defaultSuccessUrl("/user")
-//                .formLogin().successHandler(successUserHandler)
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll()
-//                .logoutSuccessUrl("/");
-
                 .authorizeRequests()
-                .antMatchers("/registration").not().fullyAuthenticated()
+                .antMatchers("/logout").permitAll()
+                // .antMatchers("/registration").not().fullyAuthenticated()
 //                //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/admin/**").fullyAuthenticated()
-                .antMatchers("/registration").not().fullyAuthenticated()
-                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/registration").not().fullyAuthenticated()
+//                .antMatchers("/", "/index").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout()

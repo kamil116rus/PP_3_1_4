@@ -10,7 +10,24 @@
 <h1>Registration</h1>
 <form th:method="POST" th:action="@{/registration}" th:object="${userForm}">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
+    <input type="email" id="username" name="username" required>
+    <br>
+    <label for="firstName">Firstname:</label>
+    <input type="text" id="firstName" name="firstName" required>
+    <br>
+    <label for="lastName">Lastname:</label>
+    <input type="text" id="lastName" name="lastName" required>
+    <br>
+    <p>
+        <label>Roles:
+            <input type="checkbox" name="roles"
+                   th:each="role : ${allRoles}"
+                   th:text="${role.getNameTable()}"
+                   th:value="${role.id}"
+                   th:field="*{roles}"
+            />
+        </label>
+    </p>
     <br>
     <label for="age">Age:</label>
     <input type="number" id="age" name="age" required>
@@ -21,6 +38,7 @@
     <label for="passwordConfirm">PasswordConfirm:</label>
     <input type="password" id="passwordConfirm" name="passwordConfirm" required>
     <br>
+
     <br>
     <button type="submit" onclick="window.location.href = '/user'">Submit</button>
     <br>

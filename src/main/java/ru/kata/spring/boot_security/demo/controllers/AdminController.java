@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,31 +24,44 @@ public class AdminController {
     }
 
     @GetMapping
-    public String userList(Model model) {
+    public String userList(Model model, Authentication authentication) {
         model.addAttribute("allUsers", userService.allUsers());
+        UserDetails user = userService.loadUserByUsername(authentication.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("userForm", new User());
+        model.addAttribute("roles", roleRepository.findAll());
         return "admin";
     }
+    @PostMapping
+    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
 
-    //    @PostMapping
-//    public String  deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId,
-//                              @RequestParam(required = true, defaultValue = "" ) String action,
-//                              Model model) {
-//        if (action.equals("delete")){
-//            userService.deleteUser(userId);
+        if (bindingResult.hasErrors()) {
+            return "admin";
+        }
+//        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())) {
+//            model.addAttribute("passwordError", "Пароли не совпадают");
+//            return "registration";
 //        }
-//        return "redirect:/admin";
-//    }
+        if (!userService.saveUser(userForm)) {
+            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+            return "admin";
+        }
+        return "redirect:/admin";
+    }
+
+
+
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.findUserById(id));
-        model.addAttribute("Roles", roleRepository.findAll());
-        return "edit";
+        model.addAttribute("roles", roleRepository.findAll());
+        return "redirect:/admin";
     }
 
     @PatchMapping("/edit")//
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+    public String update(@ModelAttribute("editedUser") @Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "edit";
+            return "admin";
         } else {
 
             userService.updateUser(user);

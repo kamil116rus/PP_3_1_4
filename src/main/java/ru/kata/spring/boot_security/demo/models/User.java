@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.models;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,15 +17,25 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(name = "usermame")
     @NotEmpty(message = "Поле не должно быть пустым")
+    @Email
+
     @Size(min = 2, max = 100, message = "Не меньше 2 знаков")
     private String username;
 
     @Column(name = "password")
     @NotEmpty(message = "Поле не должно быть пустым")
+    @UniqueElements
     @Size(min = 2, max = 100, message = "Не меньше 2 знаков")
     private String password;
+
+    @Column(name= "firsname")
+    private String firstName;
+
+    @Column(name="lastname")
+    private String lastName;
 
     @Column(name = "age")
     @NotEmpty(message = "Поле не должно быть пустым")
@@ -41,6 +52,24 @@ public class User implements UserDetails {
     public User() {
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
@@ -54,17 +83,15 @@ public class User implements UserDetails {
     }
 
     public String getRole() {
-        return getRoles().stream().map(Role::getName).toString();
+        return getRoles().toString().replace("[", "")
+                .replace("]", "").replace("ROLE_", "");
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
-    public User(String username, int age) {
-        this.username = username;
-        this.age = age;
-    }
+
 
     public Long getId() {
         return id;

@@ -18,7 +18,12 @@
         <td><b th:text="${user.getId()}">Id</b></td>
         <td th:text="${user.getUsername()}">userName</td>
         <td th:text="${user.getAge()}">age</td>
-        <td th:text="${user.getRoles()}">roles</td>
+        <td>
+            <p
+                    th:each="role : ${user.getRoles()}"
+                    th:text="${role.getNameTable()}">roles
+            </p>
+        </td>
         <td>
             <form th:method="DELETE" th:action="@{'delete/' + ${user.getId()}}">
                 <input type="submit" class="buttonDelete" value="Delete User"/>

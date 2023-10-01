@@ -62,9 +62,9 @@ public class UserService implements UserDetailsService {
 
 
         // Role roleUser = roleRepository.findOneByName("ROLE_USER"); // альтернативный вариант
-        Set<Role> roles = new HashSet<>(); // т.к. User.setRoles требует Set
-        roles.add(roleRepository.findOneByName("ROLE_USER")); // создадим Set с одним значением
-        user.setRoles(roles);
+        //Set<Role> roles = new HashSet<>(); // т.к. User.setRoles требует Set
+       // roles.add(roleRepository.findOneByName("ROLE_USER")); // создадим Set с одним значением
+        user.setRoles(user.getRoles());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
@@ -82,6 +82,8 @@ public class UserService implements UserDetailsService {
         user.setUsername(user.getUsername());
         user.setPassword(user.getPassword());
         user.setAge(user.getAge());
+//        user.setFirstName(user.getFirstName());
+//        user.setLastName(user.getLastName());
         user.setRoles(user.getRoles());
         userRepository.save(user);
 

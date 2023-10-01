@@ -41,7 +41,7 @@
             <p>
                 <label>Roles:
                     <input type="checkbox" name="roles"
-                           th:each="role : ${Roles}"
+                           th:each="role : ${roles}"
                            th:text="${role.getNameTable()}"
                            th:value="${role.id}"
                            th:field="*{roles}"
